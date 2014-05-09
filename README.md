@@ -18,8 +18,8 @@ Running
 
 Run a cron job like this:
 
-...
+```
 bash collector.sh -o insert | mysql
-...
+```
 
 to insert data into the database. 
