@@ -53,6 +53,7 @@ shift $(($OPTIND -1))
 
 [[ -z "$XMLSTARLET" && -x /usr/local/bin/xml ]] && XMLSTARLET=/usr/local/bin/xml
 [[ -z "$XMLSTARLET" && -x /opt/local/bin/xml ]] && XMLSTARLET=/opt/local/bin/xml
+[[ -z "$XMLSTARLET" && -x /usr/bin/xmlstarlet ]] && XMLSTARLET=/usr/bin/xmlstarlet
 [[ -z "$XMLSTARLET" ]] && Usage "Need XML starlet"
 
 # Get all builds
