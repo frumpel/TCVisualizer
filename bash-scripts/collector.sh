@@ -62,7 +62,7 @@ shift $(($OPTIND -1))
 [[ -z "$XMLSTARLET" ]] && Usage "Need XML starlet"
 
 # Get all builds
-curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/httpAuth/app/rest/builds?${LIST_CNT}" \
+curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/httpAuth/app/rest/builds?count=${LIST_CNT}" \
 | $XMLSTARLET sel -t -m '//build' -v '@href' -n \
 | while read uri; do
     echo "# $uri"
