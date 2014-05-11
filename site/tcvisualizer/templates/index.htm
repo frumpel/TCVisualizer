@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TeamCity Visualizer</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/d3/d3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/gantt-chart-d3/gantt-chart-d3.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/chart.js') }}"></script>
+
+        {% import "_chart.htm" as _chart %}
+
+        {% for project in projects %}
+            {{ _chart.render(jsondumps(project)) }}
+        {% endfor %}
+    </body>
+</html>
