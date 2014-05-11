@@ -92,7 +92,7 @@ curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/h
     | (
         case $OUT_FORM in
           json)
-            $XMLSTARLET sel -t -m '//build' -v 'concat(
+            $XMLSTARLET sel -t -m '/build' -v 'concat(
               "{",
               "|buildNumber| : |", @number,                "|,",
               "|projectName| : |", buildType/@projectName, "|,",
@@ -105,7 +105,7 @@ curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/h
             | egrep -i ' (build|deploy)'
             ;;
           csv)
-            $XMLSTARLET sel -t -m '//build' -v 'concat(
+            $XMLSTARLET sel -t -m '/build' -v 'concat(
               "buildNumber,", @number,                ",",
               "projectName,", buildType/@projectName, ",",
               "taskName,",    buildType/@name,        ",",
@@ -117,7 +117,7 @@ curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/h
             | egrep -i ' (build|deploy)'
             ;;
           insert)
-            $XMLSTARLET sel -t -m '//build' -v 'concat(
+            $XMLSTARLET sel -t -m '/build' -v 'concat(
               "INSERT INTO buildhistory (buildNumber,projectName,taskName,startDate,endDate,status) VALUES (",
               "|", @number,                "|,",
               "|", buildType/@projectName, "|,",
