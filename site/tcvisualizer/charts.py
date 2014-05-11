@@ -30,6 +30,6 @@ def _get_tasks(project_name):
 
 def get_projects():
     session = db.Session()
-    projects = [project[0] for project in session.query(Task.projectName).distinct()]
+    projects = [project[0] for project in session.query(Task.projectName).distinct()].sort(key=str.lower)
     session.close()
-    return projects.sort(key=str.lower)
+    return projects
