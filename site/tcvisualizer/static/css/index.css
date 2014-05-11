@@ -1,0 +1,11 @@
+ .bar-success {
+      fill: #33b5e5;
+  }
+
+  .bar-failure {
+    fill: #CC0000;
+  }
+
+  .bar-error {
+      fill: #CC0000;
+  }
