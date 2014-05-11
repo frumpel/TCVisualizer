@@ -32,4 +32,4 @@ def get_projects():
     session = db.Session()
     projects = [project[0] for project in session.query(Task.projectName).distinct()]
     session.close()
-    return projects
+    return projects.sort(key=str.lower)
