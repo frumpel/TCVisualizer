@@ -9,7 +9,7 @@ app = Flask(
 
 @app.route('/')
 def home():
-    return charts.render(['SMART Learn WBP'])
+    return charts.render(['DCB server', 'Workspaces', 'Whiteboard', 'Identity (AppEngine)'])
 
 @app.route('/visualize/')
 def visualize():

@@ -25,3 +25,13 @@ class Task(Base):
         format = "<Task(buildNumber='%s', projectName='%s', taskName='%s', startDate='%s', endDate='%s', status='%s')>"
         fields = (self.buildNumber, self.projectName, self.taskName, self.startDate, self.endDate, self.status)
         return format % fields
+
+    def to_dict(self):
+        return {
+            "buildNumber": self.buildNumber,
+            "projectName": self.projectName,
+            "taskName": self.taskName,
+            "startDate": self.startDate.strftime("%a, %d %b %Y %H:%M:%S"),
+            "endDate": self.endDate.strftime("%a, %d %b %Y %H:%M:%S"),
+            "status": self.status
+        }
