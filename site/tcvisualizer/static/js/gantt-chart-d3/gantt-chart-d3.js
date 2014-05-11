@@ -107,7 +107,7 @@ d3.gantt = function() {
 	 .call(xAxis);
 	 
 	 svg.append("g").attr("class", "y axis").transition().call(yAxis);
-	 
+	 gantt.svg = svg;
 	 return gantt;
 
     };
@@ -116,8 +116,8 @@ d3.gantt = function() {
 
 	initTimeDomain(tasks);
 	initAxis();
-	
-        var svg = d3.select("svg");
+        var svg = gantt.svg;
+        //var svg = d3.select("svg");
 
         var ganttChartGroup = svg.select(".gantt-chart");
         var rect = ganttChartGroup.selectAll("rect").data(tasks, keyFunction);
