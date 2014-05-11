@@ -4,37 +4,31 @@ var taskStatus = {
     "ERROR" : "bar-error"
 };
 
-function changeTimeDomain(chart, tasks, startDate, endDate) {
-    chart.timeDomain([startDate, endDate]);
-    chart.redraw(tasks);
+function changeTimeDomain(startDate, endDate) {
+    for (var i = 0; i < listOfCharts.length; i++) {
+        listOfCharts[i].gantt.timeDomain([startDate, endDate]);
+        listOfCharts[i].gantt.redraw(listOfCharts[i].tasks);
+    }
 }
 
 var listOfCharts = [];
 var addGanttChart = function (project) {
-    var minDate = d3.time.day.offset(new Date(), -1);
-    var maxDate = d3.time.hour.offset(new Date(), +1);
     for (i = 0; i < project.tasks.length; i++) {
         project.tasks[i].startDate = new Date(project.tasks[i].startDate);
         project.tasks[i].endDate = new Date(project.tasks[i].endDate);
-        if (project.tasks[i].startDate < minDate) {
-            minDate = project.tasks[i].startDate;
-        }
-        if (project.tasks[i].endDate > maxDate) {
-            maxDate = project.tasks[i].endDate;
-        }
     }
 
     var gantt = d3.gantt().taskTypes(project.types).taskStatus(taskStatus).tickFormat("%H:%M").height(200).width(800);
-    //gantt.timeDomainMode("fixed");
-    //changeTimeDomain(gantt, project.tasks, minDate, maxDate);
-    gantt(project.tasks);    
+    gantt.timeDomainMode("fixed");
+    gantt(project.tasks);
+    listOfCharts.push({'gantt': gantt, 'tasks': project.tasks});
 };
 
 $(function() {
     $( "#from" ).datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2,
+        numberOfMonths: 1,
         onClose: function( selectedDate ) {
             $( "#to" ).datepicker( "option", "minDate", selectedDate );
         }
@@ -43,9 +37,27 @@ $(function() {
     $( "#to" ).datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2,
+        numberOfMonths: 1,
         onClose: function( selectedDate ) {
             $( "#from" ).datepicker( "option", "maxDate", selectedDate );
         }
     });
+
+    var datePickerValueChange = function () {
+        var fromDate = $("#from").datepicker("getDate");
+        if (fromDate != null) {
+            fromDate.setHours(-6, 0, 0, 0);
+        }
+
+        var toDate = $("#to").datepicker("getDate");
+        if (toDate != null) {
+            toDate.setHours(-6, 0, 0, 0);
+        }
+
+        // Update time domain for all Gantt charts
+        changeTimeDomain(fromDate, toDate);
+    }
+
+    $("#from").on("change", datePickerValueChange);
+    $("#to").on("change", datePickerValueChange);
 });
