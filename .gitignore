@@ -22,3 +22,9 @@ var/
 
 # Installer logs
 pip-log.txt
+
+
+# Vim temporary/swap files
+*~
+*.swp
+*.swo
