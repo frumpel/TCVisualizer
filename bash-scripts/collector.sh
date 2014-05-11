@@ -2,6 +2,7 @@
 
 TEAMCITY=ampcity.smarttech.inc
 LIST_CNT=100
+START_AT=0
 OUT_FORM=json
 
 PROGNAME=`basename $0`
@@ -21,14 +22,29 @@ Usage() {
 # Options
 #
 # -a url     TeamCity URL
-# -c int     Number of most recent builds to list
+# -c int     Number of (most recent) builds to list
+# -s int     Offset at which to start listing builds. Use this if you need to
+#            list older versions for initial database population and don't want
+#            to kill Teamcity:
+#
+#		#!/bin/bash
+#
+#		STEP=100
+#		MAX=10000
+#
+#		ii=\$STEP
+#		while [ \$ii -lt \$MAX ]; do
+#		  $0 -s \$ii -c \$STEP ...
+#		  ii=\$((\$ii+\$STEP))
+#		done
+#
 # -o format  Select output format. Options: csv,json,insert
 #
 EOT
   exit 1
 }
 
-while getopts ha:c:o: opt; do
+while getopts ha:c:s:o: opt; do
   case $opt in
     h) 
       Usage
@@ -49,6 +65,9 @@ while getopts ha:c:o: opt; do
           ;;
       esac
       ;;
+    s)
+      START_AT="$OPTARG"
+      ;;
     *)
       Usage
       ;;
@@ -62,7 +81,7 @@ shift $(($OPTIND -1))
 [[ -z "$XMLSTARLET" ]] && Usage "Need XML starlet"
 
 # Get all builds
-curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/httpAuth/app/rest/builds?count=${LIST_CNT}" \
+curl -s -n -X GET  -H "Content-type: text/plain" "http://ampcity.smarttech.inc/httpAuth/app/rest/builds?count=${LIST_CNT}&start=${START_AT}" \
 | $XMLSTARLET sel -t -m '//build' -v '@href' -n \
 | while read uri; do
     echo "# $uri"
