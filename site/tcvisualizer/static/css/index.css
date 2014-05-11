@@ -1,11 +1,17 @@
- .bar-success {
-      fill: #33b5e5;
-  }
+.bar-success {
+  fill: #33b5e5;
+}
 
-  .bar-failure {
-    fill: #CC0000;
-  }
+.bar-failure {
+fill: #CC0000;
+}
 
-  .bar-error {
-      fill: #CC0000;
-  }
+.bar-error {
+  fill: #CC0000;
+}
+
+.svg-holder {
+    padding: 9px;
+    margin: 6px;
+    border: 1px solid #CCC;
+}

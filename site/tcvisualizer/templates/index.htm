@@ -24,7 +24,10 @@
         {% import "_chart.htm" as _chart %}
 
         {% for project in projects %}
-            {{ _chart.render(jsondumps(project)) }}
+            <div class="svg-holder" id="svg-holder-{{ loop.index0 }}">
+                {{ project.name }} <br>
+                {{ _chart.render(jsondumps(project)) }}
+            </div>
         {% endfor %}
     </body>
 </html>

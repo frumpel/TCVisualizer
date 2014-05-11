@@ -18,7 +18,7 @@ var addGanttChart = function (project) {
         project.tasks[i].endDate = new Date(project.tasks[i].endDate);
     }
 
-    var gantt = d3.gantt().taskTypes(project.types).taskStatus(taskStatus).tickFormat("%H:%M").height(200).width(800);
+    var gantt = d3.gantt().taskTypes(project.types).taskStatus(taskStatus).tickFormat("%d/%m").height(200).width(800);
     gantt.timeDomainMode("fixed");
     gantt(project.tasks);
     listOfCharts.push({'gantt': gantt, 'tasks': project.tasks});

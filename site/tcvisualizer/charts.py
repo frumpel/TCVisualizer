@@ -24,7 +24,12 @@ def render(project_names):
 
 def _get_tasks(project_name):
     session = db.Session()
-    return [task.to_dict() for task in session.query(Task).filter(Task.projectName == project_name)]
+    tasks = [task.to_dict() for task in session.query(Task).filter(Task.projectName == project_name)]
+    session.close()
+    return tasks
 
-#def align_tasks(tasks):
-    #
+def get_projects():
+    session = db.Session()
+    projects = [project[0] for project in session.query(Task.projectName).distinct()]
+    session.close()
+    return projects
