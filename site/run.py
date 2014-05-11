@@ -17,4 +17,5 @@ def visualize():
 
 
 if __name__ == '__main__':
+    app.config['SERVER_NAME']='10.7.71.30:80';
     app.run(debug=True)

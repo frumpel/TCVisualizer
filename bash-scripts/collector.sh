@@ -32,7 +32,7 @@ Usage() {
 #		STEP=100
 #		MAX=10000
 #
-#		ii=\$STEP
+#		ii=0
 #		while [ \$ii -lt \$MAX ]; do
 #		  $0 -s \$ii -c \$STEP ...
 #		  ii=\$((\$ii+\$STEP))
