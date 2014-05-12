@@ -56,6 +56,11 @@ $(function() {
             toDate.setHours(-6, 0, 0, 0);
         }
 
+        if (toDate < fromDate) {
+            toDate = fromDate;
+            toDate.setHours(+6,0,0,0)
+        }
+
         // Update time domain for all Gantt charts
         changeTimeDomain(d3.time.day.offset(fromDate,0), d3.time.day.offset(toDate,0));
     }

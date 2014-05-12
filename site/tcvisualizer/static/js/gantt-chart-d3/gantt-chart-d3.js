@@ -124,9 +124,15 @@ d3.gantt = function() {
         initTimeDomain(tasks);
         initAxis();
 
-        var svg = gantt.svg;
+        // The original is plain stupid because you can't easily have multiple charts
         //var svg = d3.select("svg");
 
+        // This doesn't work but I don't understand why
+        //var svg = gantt.svg;
+
+        // This works 
+        var svg = d3.select(gantt.attachedto).select("svg");
+        
         var ganttChartGroup = svg.select(".gantt-chart");
         var rect = ganttChartGroup.selectAll("rect").data(tasks, keyFunction);
         
