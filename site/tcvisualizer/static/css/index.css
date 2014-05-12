@@ -11,7 +11,15 @@ fill: #CC0000;
 }
 
 .svg-holder {
-    padding: 9px;
-    margin: 6px;
+    margin: 14px;
+}
+
+.chart-title {
     border: 1px solid #CCC;
+    padding: 10px;
+}
+
+.chart {
+    margin-left: 26px;
+    overflow: visible;
 }
