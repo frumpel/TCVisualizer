@@ -12,5 +12,10 @@ def home():
     projects = charts.get_projects()
     return charts.render(projects)
 
+@app.route('/demo')
+def demo():
+    projects = ['DCB Server']
+    return charts.render(projects)
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80);
