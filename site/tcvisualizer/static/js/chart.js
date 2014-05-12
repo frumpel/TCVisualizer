@@ -4,15 +4,17 @@ var taskStatus = {
     "ERROR" : "bar-error"
 };
 
+var listOfCharts = [];
+
 function changeTimeDomain(startDate, endDate) {
+    console.debug("changeTimeDomain:" + startDate + "(" + typeof(startDate) + ")")
     for (var i = 0; i < listOfCharts.length; i++) {
         listOfCharts[i].gantt.timeDomain([startDate, endDate]);
         listOfCharts[i].gantt.redraw(listOfCharts[i].tasks);
     }
 }
 
-var listOfCharts = [];
-var addGanttChart = function (project) {
+var addGanttChart = function (project, useElement) {
     for (i = 0; i < project.tasks.length; i++) {
         project.tasks[i].startDate = new Date(project.tasks[i].startDate);
         project.tasks[i].endDate = new Date(project.tasks[i].endDate);
@@ -20,7 +22,7 @@ var addGanttChart = function (project) {
 
     var gantt = d3.gantt().taskTypes(project.types).taskStatus(taskStatus).tickFormat("%d/%m").height(200).width(800);
     gantt.timeDomainMode("fixed");
-    gantt(project.tasks);
+    gantt(project.tasks,useElement);
     listOfCharts.push({'gantt': gantt, 'tasks': project.tasks});
 };
 
@@ -55,7 +57,7 @@ $(function() {
         }
 
         // Update time domain for all Gantt charts
-        changeTimeDomain(fromDate, toDate);
+        changeTimeDomain(d3.time.day.offset(fromDate,0), d3.time.day.offset(toDate,0));
     }
 
     $("#from").on("change", datePickerValueChange);

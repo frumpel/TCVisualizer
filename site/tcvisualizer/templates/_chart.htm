@@ -1,5 +1,5 @@
-{% macro render(project) -%}
+{% macro render(project,useElement) -%}
     <script>
-        addGanttChart({{ project|safe }});
+        addGanttChart({{ project|safe }}, {{ useElement|safe }});
     </script>
 {%- endmacro %}

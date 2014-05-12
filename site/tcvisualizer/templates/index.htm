@@ -26,7 +26,7 @@
         {% for project in projects %}
             <div class="svg-holder" id="svg-holder-{{ loop.index0 }}">
                 {{ project.name }} <br>
-                {{ _chart.render(jsondumps(project)) }}
+                {{ _chart.render(jsondumps(project),'"' + "#svg-holder-" + loop.index0|string + '"')}}
             </div>
         {% endfor %}
     </body>
